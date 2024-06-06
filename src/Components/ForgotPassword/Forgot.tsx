@@ -30,10 +30,8 @@ const Login = () => {
                 throw new Error("Recovery Failure")
             }
             const json = await response.json()
-            console.log(response.status)
-            console.log(json.access_token)
-
             sessionStorage.setItem('token', json.access_token)
+            
             setSuccessMessage('Password changed successfully!')
             setError("")
         } catch (err) {
