@@ -29,6 +29,9 @@ const RegisterMonitor = () => {
 
     const [matters, setMatters] = useState([])
     const [classrooms, setClassrooms] = useState([])
+    
+    const [error, setError] = useState("")
+    const [successMessage, setSucessMessage] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -125,22 +128,50 @@ const RegisterMonitor = () => {
                     "matterId": matterId
                 })
             })
-
+            handleUpdateClassroomStatus(event)
             if (!response.ok) {
                 throw new Error("Error when registering the monitor")
-            }           
+            }
+
+            setSucessMessage("Monitor registered sucecessfully!")
+            setError("")
         } catch (err) {
+            setError("Unable to register the monitor. Review the items and try again.")
+            setSucessMessage("")
             console.log(err)
         }
     }
 
+    const handleUpdateClassroomStatus = async (event: React.FormEvent) => {
+        const token = sessionStorage.getItem('token')
+        try {
+            event.preventDefault()
+            const response = await fetch(`http://localhost:3000/classroom/${classroomId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    "isReserved": true
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error("Error when updating classroom status.")
+            }
+        } catch (err) {
+            console.log(err)
+        } 
+    }
+ 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = event.target;
         setDays(prevDays => ({ ...prevDays, [name]: checked }));
     }
 
     const getFormatEndHour = () => {
-        let dateObj = new Date(`1970-01-01T${startHour}Z`);
+        let dateObj = new Date(`1970-01-01T${endHour}Z`);
         let endHourString = dateObj.toISOString().slice(11, 19);
         return endHourString;
     }
@@ -260,6 +291,9 @@ const RegisterMonitor = () => {
                             <input type="radio" id="in-person-and-remote" name="monitor-type" value="PRESENCIAL E REMOTO" required checked={type === 'PRESENCIAL E REMOTO'} onChange={(e) => setType(e.target.value)} />
                         </label>
                     </div>
+
+                    {successMessage && <div className="success-message-recover">{successMessage}</div>}
+                    {error && <div className="error-message-recover">{error}</div>}
 
                     <button className="btn-confirm">Confirmar</button>
                     <button onClick={backScreen}>Voltar</button>
