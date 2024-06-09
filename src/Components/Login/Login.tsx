@@ -22,11 +22,13 @@ const Login = () => {
                     "password": password
                 })
             })
+            
             if (!response.ok) {
                 throw new Error("Authentication Failure")
             }
             const json = await response.json()
             sessionStorage.setItem('token', json.access_token)
+            sessionStorage.setItem('userEmail', username)
             navigate('/monitor')
         } catch (err) {
             setError("Unable to perform authentication. Check your email and password.")

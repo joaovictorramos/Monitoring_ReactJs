@@ -37,7 +37,7 @@ const Monitor = () => {
                 <h1>Monitores</h1>
                 <div className="btn-monitor">
                     <ul>
-                        <li><Link to="#">Cadastrar Monitor</Link></li>
+                        <li><Link to="/RegisterMonitor">Cadastrar Monitor</Link></li>
                         <li><Link to="/">Voltar</Link></li>
                     </ul>
                 </div>

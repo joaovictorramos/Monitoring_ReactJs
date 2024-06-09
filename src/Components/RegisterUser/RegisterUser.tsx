@@ -19,10 +19,6 @@ const RegisterUser = () => {
     const handleRegister = async (event: React.FormEvent) => {
         try{
             event.preventDefault()
-            console.log(name)
-            console.log(email)
-            console.log(password)
-            console.log(office)
             const response = await fetch('http://localhost:3000/users/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -74,11 +70,11 @@ const RegisterUser = () => {
                     </div>
                     <div className="input-radio-field">
                         <label htmlFor="student">Aluno
-                            <input type="radio" className="input-radio-student" id="student" name="user-type" value="ALUNO" required checked={office === 'ALUNO'} onChange={(e) => setOffice(e.target.value)} />
+                            <input type="radio" className="input-radio-student" id="student" name="user-office" value="ALUNO" required checked={office === 'ALUNO'} onChange={(e) => setOffice(e.target.value)} />
                         </label>
                         <br />
                         <label htmlFor="teacher">Professor
-                            <input type="radio" id="teacher" value="PROFESSOR" name="user-type" required checked={office === 'PROFESSOR'} onChange={(e) => setOffice(e.target.value)} />
+                            <input type="radio" id="teacher" value="PROFESSOR" name="user-office" required checked={office === 'PROFESSOR'} onChange={(e) => setOffice(e.target.value)} />
                         </label>
                         <VscListSelection className="icon icon-radio" />
                     </div>

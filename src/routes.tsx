@@ -3,6 +3,7 @@ import App from "./App";
 import Monitor from "./Components/Monitor/Monitor";
 import Forgot from "./Components/ForgotPassword/Forgot";
 import RegisterUser from "./Components/RegisterUser/RegisterUser";
+import RegisterMonitor from "./Components/RegisterMonitor/RegisterMonitor";
 
 function MainRoutes() {
     return(
@@ -11,6 +12,7 @@ function MainRoutes() {
             <Route path="/monitor" element={<Monitor />}></Route>
             <Route path="/forgot" element={<Forgot />}></Route>
             <Route path="/registerUser" element={<RegisterUser />}></Route>
+            <Route path="/registerMonitor" element={<RegisterMonitor />}></Route>
         </Routes>
     )
 }
