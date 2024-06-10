@@ -29,52 +29,52 @@
     color: #ffffff;
 }
   
-.table-monitor table {
+.table-monitor-container .table-monitor {
     width: 100%;
     border-collapse: collapse;
 }
   
-.table-monitor th, .table-monitor td {
+.table-monitor-container th, .table-monitor-container td {
     text-align: center;
     padding: 0.5rem;
     border-bottom: 1px solid #dee2e6;
 }
   
-.table-monitor th {
+.table-monitor-container th {
     background-color: #f8f9fa;
 }
-  
+ 
 @media (max-width: 768px) {
     .btn-monitor ul {
         flex-direction: column;
     }
 
-    .table-monitor table,
-    .table-monitor thead,
-    .table-monitor tbody,
-    .table-monitor th,
-    .table-monitor td,
-    .table-monitor tr {
+    .table-monitor-container .table-monitor,
+    .table-monitor-container thead,
+    .table-monitor-container tbody,
+    .table-monitor-container th,
+    .table-monitor-container td,
+    .table-monitor-container tr {
         display: block;
     }
 
-    .table-monitor thead tr {
+    .table-monitor-container thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    .table-monitor tr {
+    .table-monitor-container tr {
         margin-bottom: 1rem;
     }
 
-    .table-monitor td {
+    .table-monitor-container td {
         text-align: right;
         padding-left: 50%;
         position: relative;
     }
 
-    .table-monitor td:before {
+    .table-monitor-container td:before {
         content: attr(data-title);
         position: absolute;
         left: 0;

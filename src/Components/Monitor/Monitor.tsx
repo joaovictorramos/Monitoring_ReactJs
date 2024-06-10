@@ -3,9 +3,17 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./Monitor.css";
 import "../../App.css";
+import ViewMonitor from '../ViewMonitor/ViewMonitor';
 
 const Monitor = () => {
     const [datas, setDatas] = useState([])
+    const [handleId, setHandleId] = useState("")
+    const [monitorVisible, setMonitorVisible] = useState(false)
+
+    const handleClick = (id) => {
+        setMonitorVisible(true);
+        setHandleId(id);
+    };
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -23,7 +31,6 @@ const Monitor = () => {
             return response.json()
         })
         .then(data => {
-            console.log(data)
             setDatas(data)
         })
         .catch(error => {
@@ -43,8 +50,8 @@ const Monitor = () => {
                 </div>
                 <hr />
 
-                <div className="table-monitor">
-                    <table>
+                <div className="table-monitor-container">
+                    <table className='table-monitor'>
                         <thead>
                             <tr>
                                 <th>Monitor</th>
@@ -69,22 +76,14 @@ const Monitor = () => {
                                     <td>{item.daysOfTheWeek}</td>
                                     <td>{item.classrooms.name}</td>
                                     <td>{item.typeOfMonitoring}</td>
-                                    <td><Link to="#">Visualizar</Link></td>
+                                    <td>
+                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleClick(item.id); }} >Visualizar</Link>
+                                        {monitorVisible && handleId === item.id && <ViewMonitor setMonitorVisible={setMonitorVisible} handleId={handleId} />}
+                                    </td>
                                     <td><Link to="#">Atualizar</Link></td>
                                     <td><Link to="#">Excluir</Link></td>
                                 </tr>
                             ))}                                
-                                {/*
-                                <td>
-                                    <Link className="col-view" to="#">Visualizar</Link>
-                                </td>
-                                <td>
-                                    <Link className="col-update" to="#">Atualizar</Link>
-                                </td>
-                                <td>
-                                    <Link className="col-delete" to="#">Deletar</Link>
-                                </td>
-                                */}
                         </tbody>
                     </table>
                 </div>
