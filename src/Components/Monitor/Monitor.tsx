@@ -4,16 +4,23 @@ import { Link } from 'react-router-dom';
 import "./Monitor.css";
 import "../../App.css";
 import ViewMonitor from '../ViewMonitor/ViewMonitor';
+import UpdateMonitor from '../UpdateMonitor/UpdateMonitor';
 
 const Monitor = () => {
     const [datas, setDatas] = useState([])
     const [handleId, setHandleId] = useState("")
+    const [updateVisible, setUpdateVisible] = useState(false)
     const [monitorVisible, setMonitorVisible] = useState(false)
 
     const handleClick = (id) => {
         setMonitorVisible(true);
         setHandleId(id);
     };
+
+    const handleUpdateClick = (id) => {
+        setUpdateVisible(true);
+        setHandleId(id);
+    }
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -80,7 +87,10 @@ const Monitor = () => {
                                         <Link to="#" onClick={(e) => { e.preventDefault(); handleClick(item.id); }} >Visualizar</Link>
                                         {monitorVisible && handleId === item.id && <ViewMonitor setMonitorVisible={setMonitorVisible} handleId={handleId} />}
                                     </td>
-                                    <td><Link to="#">Atualizar</Link></td>
+                                    <td>
+                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
+                                        {updateVisible && handleId === item.id && <UpdateMonitor setUpdateVisible={setUpdateVisible} handleId={handleId} />}
+                                    </td>
                                     <td><Link to="#">Excluir</Link></td>
                                 </tr>
                             ))}                                
