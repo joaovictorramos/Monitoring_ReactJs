@@ -128,41 +128,18 @@ const RegisterMonitor = () => {
                     "matterId": matterId
                 })
             })
-            handleUpdateClassroomStatus(event)
+
             if (!response.ok) {
                 throw new Error("Error when registering the monitor")
             }
 
-            setSucessMessage("Monitor registered sucecessfully!")
+            setSucessMessage("Monitor registered successfully!")
             setError("")
         } catch (err) {
             setError("Unable to register the monitor. Review the items and try again.")
             setSucessMessage("")
             console.log(err)
         }
-    }
-
-    const handleUpdateClassroomStatus = async (event: React.FormEvent) => {
-        const token = sessionStorage.getItem('token')
-        try {
-            event.preventDefault()
-            const response = await fetch(`http://localhost:3000/classroom/${classroomId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    "isReserved": true
-                })
-            })
-
-            if (!response.ok) {
-                throw new Error("Error when updating classroom status.")
-            }
-        } catch (err) {
-            console.log(err)
-        } 
     }
  
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,8 +181,6 @@ const RegisterMonitor = () => {
             }
             return 'SEGUNDA-FEIRA'
         }
-
-        
     }
 
     const backScreen = () => {

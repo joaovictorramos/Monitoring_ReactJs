@@ -8,8 +8,31 @@ const Popup = ({ setUpdateVisible, handleId }) => {
     const [monitor, setMonitor] = useState([])
     const [classroom, setClassroom] = useState([])
 
+    const [name, setName] = useState("")
+    const [registration, setRegistration] = useState("")
+    const [email, setEmail] = useState("")
+    const [matterId, setMatterId] = useState("")
+    const [period, setPeriod] = useState(null)
+
+    const [days, setDays] = useState({
+        Segunda: false,
+        Terça: false,
+        Quarta: false,
+        Quinta: false,
+        Sexta: false,
+        Sábado: false,
+    });
+
+    const [startHour, setStartHour] = useState("")
+    const [endHour, setEndHour] = useState("")
+    const [classroomId, setClassroomId] = useState("")
+    const [type, setType] = useState("")
+
     const [matters, setMatters] = useState([])
     const [classrooms, setClassrooms] = useState([])
+    
+    const [error, setError] = useState("")
+    const [successMessage, setSucessMessage] = useState("")
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -34,7 +57,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
         .catch(err => {
             console.log(`Error when loading the user in the monitor view popup: ${err}`)
         })
-    })
+    }, [])
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -82,34 +105,156 @@ const Popup = ({ setUpdateVisible, handleId }) => {
         })
     }, [])
 
+    const handleUpdateMonitor = async (event: React.FormEvent) => {
+        const token = sessionStorage.getItem('token')
+        event.preventDefault()
+
+        const bodyFormatter = {}
+        if (name.trim() != '' && name.trim() !== undefined && name.trim() != null) {
+            bodyFormatter["name"] = name
+        }
+        if (registration.trim() != '' && registration.trim() !== undefined && registration.trim() != null) {
+            bodyFormatter["registration"] = registration
+        }
+        if (email.trim() != '' && email.trim() !== undefined && name.trim() != null) {
+            if (handleSetEmail(email.trim()))
+                bodyFormatter["institutionalEmail"] = email
+        }
+        if (period !== undefined && period != null) {
+            bodyFormatter["actualPeriod"] = parseInt(period)
+        }
+        if (matterId != '' && matterId !== undefined && matterId != null) {
+            bodyFormatter["matterId"] = matterId
+        }
+        if (startHour != '' && startHour !== undefined && startHour != null) {
+            bodyFormatter["startHour"] = getFormatStartHour()
+        }
+        if (endHour != '' && endHour !== undefined && endHour != null) {
+            bodyFormatter["endHour"] = getFormatEndHour()
+        }
+        if (type != '' && type !== undefined && type != null) {
+            bodyFormatter["typeOfMonitoring"] = type
+        }
+        if (classroomId != '' && classroomId !== undefined && classroomId != null) {
+            bodyFormatter['classroomId'] = classroomId
+        }
+        if ( days.Segunda ) { // temporário
+            bodyFormatter['daysOfTheWeek'] = getFormatDays()
+        }
+       
+        if (Object.keys(bodyFormatter).length !== 0) {
+            try {
+                event.preventDefault()
+                const response = await fetch(`http://localhost:3000/monitor/${handleId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(
+                        bodyFormatter
+                    )
+                })
+
+                if (!response.ok) {
+                    throw new Error("Error when updating monitor")
+                }
+                
+                setSucessMessage("Monitor updated successfully!")
+                setError("")
+            } catch (err) {
+                setError("Unable to update the monitor. Review the items and try again.")
+                setSucessMessage("")
+                console.log(err)
+            }
+        } else {
+            setError("Unable to update the monitor. Review the items and try again.")
+            setSucessMessage("")
+        }
+    }
+
+    const getFormatDays = () => {
+        if (days.Segunda || days.Terça || days.Quarta || days.Quinta || days.Sexta || days.Sábado) {
+            const daysList = []
+            if (days['Segunda']) {
+                daysList.push('SEGUNDA-FEIRA')
+            } else if (days['Terça']) {
+                daysList.push('TERÇA-FEIRA')
+            } else if (days['Quarta']) {
+                daysList.push('QUARTA-FEIRA')
+            } else if (days['Quinta']) {
+                daysList.push('QUINTA-FEIRA')
+            } else if (days['Sexta']) {
+                daysList.push('SEXTA-FEIRA')
+            } else if (days['Sábado']) {
+                daysList.push('SÁBADO')
+            }
+            return 'SEGUNDA-FEIRA'
+        }
+    }
+
+    const handleSetEmail = (emailValue) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if(emailRegex.test(emailValue)) {
+          setEmail(emailValue)
+          return true
+        } else {
+          alert("The email is not valid")
+          return false
+        }
+        
+    }
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = event.target;
+        setDays(prevDays => ({ ...prevDays, [name]: checked }));
+    }
+
+    const getFormatEndHour = () => {
+        const dateObj = new Date(`1970-01-01T${endHour}Z`);
+        const endHourString = dateObj.toISOString().slice(11, 19);
+        return endHourString;
+    }
+
+    const getFormatStartHour = () => {
+        const dateObj = new Date(`1970-01-01T${startHour}Z`);
+        const startHourString = dateObj.toISOString().slice(11, 19);
+        return startHourString;
+    }
+
+    const loadPage = () => {
+        window.location.reload()
+    }
+
     return (
         <div onClick={setUpdateVisible.bind(this, false)} className="container-popup">
             <div onClick={(e) => e.stopPropagation()} className="container-update-monitor">
                 <div className="title-update-monitor">
                     <h2>Atualizar monitor</h2>
-                    <div onClick={setUpdateVisible.bind(this, false)}>
+                    <div onClick={ () => { setUpdateVisible.bind(this, false); loadPage() }}>
                         <AiOutlineCloseSquare />
                     </div>
                 </div>
-                <form className="update-monitor-form">
+                <form onSubmit={handleUpdateMonitor} className="update-monitor-form">
                     <div className="update-absence">
                         <a href="#">Visualizar faltas</a>
                     </div>
                     <div>
-                        <input type="text" placeholder="Nome" />
+                        <input type="text" placeholder="Nome" onChange={(e) => { e.preventDefault(); setName(e.target.value); }} />
                     </div>
                     <div>
-                        <input type="text" placeholder="N° de matrícula" />
+                        <input type="text" placeholder="N° de matrícula" onChange={(e) => { e.preventDefault(); setRegistration(e.target.value) }} />
                     </div>
                     <div>
-                        <input type="text" placeholder="E-mail institucional" />
+                        <input type="email" placeholder="E-mail institucional" onChange={(e) => { e.preventDefault(); setEmail(e.target.value) }} />
                     </div>
                     <div>
-                        <input type="number" placeholder="Período atual"/>
+                        <input type="number" placeholder="Período atual" min={1} max={9} onChange={(e) => { e.preventDefault(); setPeriod(e.target.value) }} />
                     </div>
                     <div>
                         <p>Disciplina</p>
-                        <select>
+                        <select value={matterId} onChange={(e) => { e.preventDefault(); setMatterId(e.target.value)} }>
                             <option value="" disabled hidden>Selecione uma disciplina</option>
                             <option value="">Não mudar</option>
                             {matters.map((item, index) => (
@@ -122,32 +267,43 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                     <div>
                         <label>
                             <p>Começo:</p>
-                            <input type="time" className="update-monitor-time" />
+                            <input type="time" className="update-monitor-time" onChange={(e) => { e.preventDefault(); setStartHour(e.target.value)} } />
                         </label>
                     </div>
                     <div>
                         <label>
                             <p>Fim:</p>
-                            <input type="time" className="update-monitor-time" />
+                            <input type="time" className="update-monitor-time" onChange={(e) => { e.preventDefault(); setEndHour(e.target.value)} } />
                         </label>
                     </div>
                     <div className="update-monitor-type">
                         <p>Tipo de monitoria</p>
                         <label htmlFor="in-person">Presencial
-                            <input type="radio" id="in-person" name="monitor-type" value="PRESENCIAL" />
+                            <input type="radio" id="in-person" name="monitor-type" value="PRESENCIAL" onChange={(e) => { e.preventDefault(); setType(e.target.value)} } />
                         </label>
                         <br />
                         <label htmlFor="remote">Remoto
-                            <input type="radio" id="in-remote" name="monitor-type" value="REMOTO" />
+                            <input type="radio" id="in-remote" name="monitor-type" value="REMOTO" onChange={(e) => { e.preventDefault(); setType(e.target.value)} } />
                         </label>
                         <br />
                         <label htmlFor="in-person-and-remote">Presencial e Remoto
-                            <input type="radio" id="in-person-and-remote" name="monitor-type" value="PRESENCIAL E REMOTO" />
+                            <input type="radio" id="in-person-and-remote" name="monitor-type" value="PRESENCIAL E REMOTO" onChange={(e) => { e.preventDefault(); setType(e.target.value)} } />
                         </label>
+                    </div>
+                    <div className="update-monitor-checkbox">
+                        Dias da semana:
+                        <br /><br />
+                        {Object.keys(days).map((day, index) => (
+                            <label key={index}>
+                                {day}
+                                <input type="checkbox" name={day} checked={days[day]} onChange={handleCheckboxChange} />
+                                <br />
+                            </label>
+                        ))}
                     </div>
                     <div>
                         <p>Sala</p>
-                        <select>
+                        <select value={classroomId} onChange={(e) => { e.preventDefault(); setClassroomId(e.target.value)} }>
                             <option value="" disabled hidden>Selecione uma sala</option>
                             <option value="">Não mudar</option>
                             {classrooms.map((item, index) => (
@@ -157,11 +313,11 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <input type="text" placeholder="Bloco" />
-                    </div>
 
-                    <button>Confirmar</button>
+                    {successMessage && <div className="success-message-recover">{successMessage}</div>}
+                    {error && <div className="error-message-recover">{error}</div>}
+
+                    <input type="button" value="Confirmar" onClick={handleUpdateMonitor} />
                 </form>
             </div>
         </div>
