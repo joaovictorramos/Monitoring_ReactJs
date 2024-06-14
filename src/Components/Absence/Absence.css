@@ -1,0 +1,47 @@
+.container {
+    width: 450px;
+    background-color: rgba(10, 57, 113, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(10, 57, 113, 0.2);
+    padding: 40px;
+    border-radius: 10px;
+    text-shadow: #000 1px 1px;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.absence-table, .absence-table th, .absence-table td {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #dee2e6;
+}
+
+.absence-table th, .absence-table td {
+    text-align: center;
+    padding: 0.5rem;
+    color: #fff;
+}
+
+.container button {
+    width: 100%;
+    height: 50px;
+    color: rgb(10, 57, 113);
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.container .btn-back {
+    margin-top: 20px;
+}

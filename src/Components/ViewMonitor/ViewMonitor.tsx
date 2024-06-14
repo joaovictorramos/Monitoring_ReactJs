@@ -25,8 +25,8 @@ const Popup = ({ setMonitorVisible, handleId }) => {
         })
         .then(data => {
             setMonitor(data)
-            setMatter(data.matters)
-            setClassroom(data.classrooms)
+            setMatter(data.matterId)
+            setClassroom(data.classroomId)
         })
         .catch(err => {
             console.log(`Error when loading the user in the monitor view popup: ${err}`)

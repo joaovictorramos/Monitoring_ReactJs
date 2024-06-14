@@ -12,12 +12,12 @@ const Monitor = () => {
     const [updateVisible, setUpdateVisible] = useState(false)
     const [monitorVisible, setMonitorVisible] = useState(false)
 
-    const handleClick = (id) => {
+    const handleClick = (id: string) => {
         setMonitorVisible(true);
         setHandleId(id);
     };
 
-    const handleUpdateClick = (id) => {
+    const handleUpdateClick = (id: string) => {
         setUpdateVisible(true);
         setHandleId(id);
     }
@@ -77,11 +77,11 @@ const Monitor = () => {
                             {datas.map((item, index) => (
                                 <tr key={index}>
                                     <td>{item.name}</td>
-                                    <td>{item.matters.name}</td>
+                                    <td>{item.matterId.name}</td>
                                     <td>{item.startHour}</td>
                                     <td>{item.endHour}</td>
                                     <td>{item.daysOfTheWeek}</td>
-                                    <td>{item.classrooms.name}</td>
+                                    <td>{item.classroomId.name}</td>
                                     <td>{item.typeOfMonitoring}</td>
                                     <td>
                                         <Link to="#" onClick={(e) => { e.preventDefault(); handleClick(item.id); }} >Visualizar</Link>
@@ -93,7 +93,7 @@ const Monitor = () => {
                                     </td>
                                     <td><Link to="#">Excluir</Link></td>
                                 </tr>
-                            ))}                                
+                            ))}   
                         </tbody>
                     </table>
                 </div>

@@ -1,0 +1,74 @@
+.container {
+    width: 450px;
+    background-color: rgba(10, 57, 113, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(10, 57, 113, 0.2);
+    padding: 40px;
+    border-radius: 10px;
+    text-shadow: #000 1px 1px;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.container .input-field {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 20px auto;
+}
+
+.input-field input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px;
+}
+
+.input-field input::placeholder {
+    color: #fff;
+}
+
+.input-field textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    padding: 10px;
+    text-align: center;
+}
+
+.container button {
+    width: 100%;
+    height: 50px;
+    color: rgb(10, 57, 113);
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.container .btn-back {
+    margin-top: 20px;
+}
+
+.error-message-login {
+    color: #ff0000;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+}

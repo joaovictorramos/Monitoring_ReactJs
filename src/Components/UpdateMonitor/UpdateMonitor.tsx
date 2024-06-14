@@ -2,12 +2,9 @@ import { useState, useEffect } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import "./UpdateMonitor.css"
 import "../Monitor/Monitor.css"
+import { Link } from "react-router-dom";
 
 const Popup = ({ setUpdateVisible, handleId }) => {
-    const [matter, setMatter] = useState([])
-    const [monitor, setMonitor] = useState([])
-    const [classroom, setClassroom] = useState([])
-
     const [name, setName] = useState("")
     const [registration, setRegistration] = useState("")
     const [email, setEmail] = useState("")
@@ -33,31 +30,6 @@ const Popup = ({ setUpdateVisible, handleId }) => {
     
     const [error, setError] = useState("")
     const [successMessage, setSucessMessage] = useState("")
-
-    useEffect(() => {
-        const token = sessionStorage.getItem('token')
-        fetch(`http://localhost:3000/monitor`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error when accessing the method to search for users')
-            }
-            return response.json()
-        })
-        .then(data => {
-            setMonitor(data)
-            setMatter(data.matters)
-            setClassroom(data.classrooms)
-        })
-        .catch(err => {
-            console.log(`Error when loading the user in the monitor view popup: ${err}`)
-        })
-    }, [])
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -193,7 +165,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
         }
     }
 
-    const handleSetEmail = (emailValue) => {
+    const handleSetEmail = (emailValue: string) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
         if(emailRegex.test(emailValue)) {
@@ -238,7 +210,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                 </div>
                 <form onSubmit={handleUpdateMonitor} className="update-monitor-form">
                     <div className="update-absence">
-                        <a href="#">Visualizar faltas</a>
+                        <Link to={`/absence/${handleId}`}>Visualizar faltas</Link>
                     </div>
                     <div>
                         <input type="text" placeholder="Nome" onChange={(e) => { e.preventDefault(); setName(e.target.value); }} />
