@@ -5,12 +5,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Absence.css"
 import "../../App.css"
 import UpdateAbsence from "../UpdateAbsence/UpdateAbsence";
+import RemoveAbsence from "../RemoveAbsence/RemoveAbsence";
 
 const Absence = () => {
     const { id } = useParams();
     const [monitor, setMonitor] = useState("");
     const [absences, setAbsences] = useState([]);
     const [handleId, setHandleId] = useState("");
+    const [removeVisible, setRemoveVisible] = useState(false)
     const [updateVisible, setUpdateVisible] = useState(false)
     const navigate = useNavigate();
 
@@ -62,6 +64,11 @@ const Absence = () => {
         })
     }, [])
 
+    const handleRemoveClick = (id: string) => {
+        setRemoveVisible(true);
+        setHandleId(id);
+    }
+
     const handleUpdateClick = (id: string) => {
         setUpdateVisible(true);
         setHandleId(id);
@@ -101,7 +108,10 @@ const Absence = () => {
                                         <Link className="col-link" to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
                                         {updateVisible && handleId === item.id && <UpdateAbsence setUpdateVisible={setUpdateVisible} handleId={handleId} />}
                                     </td>
-                                    <td><Link className="col-link" to="#">Excluir</Link></td>
+                                    <td>
+                                        <Link className="col-link" to="#" onClick={(e) => { e.preventDefault(); handleRemoveClick(item.id); }}>Excluir</Link>
+                                        {removeVisible && handleId === item.id && <RemoveAbsence setRemoveVisible={setRemoveVisible} handleId={handleId} /> }
+                                    </td>
                                 </tr>
                             ))}
                             

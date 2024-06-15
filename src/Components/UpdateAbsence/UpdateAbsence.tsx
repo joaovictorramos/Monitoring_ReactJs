@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import "./UpdateAbsence.css"
-import { useState } from "react";
 
 const Popup = ({ setUpdateVisible, handleId }) => {
     const [date, setDate] = useState("");
