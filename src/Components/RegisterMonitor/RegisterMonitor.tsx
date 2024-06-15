@@ -45,7 +45,7 @@ const RegisterMonitor = () => {
             }
         })
         .then(response => {
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error('Error when accessing the method to search for users')
             }
             return response.json()
@@ -106,6 +106,7 @@ const RegisterMonitor = () => {
 
     const handleRegisterMonitor = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
+        let errorMessage = ''
         try {
             event.preventDefault()
             const response = await fetch('http://localhost:3000/monitor', {
@@ -128,15 +129,18 @@ const RegisterMonitor = () => {
                     "matterId": matterId
                 })
             })
-
-            if (!response.ok) {
+            if (response.status === 403) {
+                errorMessage = "This options is not permitted for STUDENTS"
+                throw new Error('This options is not permitted for STUDENTS')
+            } else if (!response.ok) {
+                errorMessage = "Unable to register the monitor. Review the items and try again."
                 throw new Error("Error when registering the monitor")
             }
 
             setSucessMessage("Monitor registered successfully!")
             setError("")
         } catch (err) {
-            setError("Unable to register the monitor. Review the items and try again.")
+            setError(errorMessage)
             setSucessMessage("")
             console.log(err)
         }

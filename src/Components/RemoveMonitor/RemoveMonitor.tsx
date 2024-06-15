@@ -9,6 +9,7 @@ const Popup = ({ setRemoveVisible, handleId }) => {
 
     const handleRemoveMonitor = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
+        let errorMessage = ''
         try {
             event.preventDefault()
             const response = await fetch(`http://localhost:3000/monitor/${handleId}`, {
@@ -18,15 +19,18 @@ const Popup = ({ setRemoveVisible, handleId }) => {
                     "Authorization": `Bearer ${token}`
                 }
             })
-            
-            if (!response.ok) {
+            if (response.status === 403) {
+                errorMessage = "This options is not permitted for STUDENTS"
+                throw new Error('This options is not permitted for STUDENTS')
+            } else if (!response.ok) {
+                errorMessage = "Unable to delete the monitor."
                 throw new Error("Error when deleting the monitor")
             }
 
             setSuccessMessage("Monitor deleting successfully!")
             setError("")
         } catch (err) {
-            setError("Unable to delete the monitor.")
+            setError(errorMessage)
             setSuccessMessage("")
         }
     }

@@ -79,6 +79,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
 
     const handleUpdateMonitor = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
+        let errorMessage = ''
         event.preventDefault()
 
         const bodyFormatter = {}
@@ -126,20 +127,23 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                         bodyFormatter
                     )
                 })
-
-                if (!response.ok) {
+                if (response.status === 403) {
+                    errorMessage = "This options is not permitted for STUDENTS"
+                    throw new Error('This options is not permitted for STUDENTS')
+                } else if (!response.ok) {
+                    errorMessage = "Unable to update the monitor. Review the items and try again."
                     throw new Error("Error when updating monitor")
                 }
                 
                 setSucessMessage("Monitor updated successfully!")
                 setError("")
             } catch (err) {
-                setError("Unable to update the monitor. Review the items and try again.")
+                setError(errorMessage)
                 setSucessMessage("")
                 console.log(err)
             }
         } else {
-            setError("Unable to update the monitor. Review the items and try again.")
+            setError(errorMessage)
             setSucessMessage("")
         }
     }

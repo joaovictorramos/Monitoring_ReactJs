@@ -39,6 +39,7 @@ const RegisterAbsence = () => {
 
     const handleRegisterAbsence = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
+        let errorMessage = ''
         try {
             event.preventDefault()
             const response = await fetch(`http://localhost:3000/absence/createToMonitor`, {
@@ -53,15 +54,18 @@ const RegisterAbsence = () => {
                     "monitorId": id
                 })
             })
-
-            if (!response.ok) {
+            if (response.status === 403) {
+                errorMessage = "This options is not permitted for STUDENTS"
+                throw new Error('This options is not permitted for STUDENTS')
+            } else if (!response.ok) {
+                errorMessage = 'Unable to register the absence. Review the items and try again.'
                 throw new Error("Error when registering the absence")
             }
 
             setSuccessMessage("Absence registered successfully!")
             setError("")
         } catch (err) {
-            setError("Unable to register the absence. Review the items and try again.")
+            setError(errorMessage)
             setSuccessMessage("")
             console.log(err)
         }
