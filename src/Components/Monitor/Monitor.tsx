@@ -5,11 +5,13 @@ import "./Monitor.css";
 import "../../App.css";
 import ViewMonitor from '../ViewMonitor/ViewMonitor';
 import UpdateMonitor from '../UpdateMonitor/UpdateMonitor';
+import RemoveMonitor from '../RemoveMonitor/RemoveMonitor';
 
 const Monitor = () => {
     const [datas, setDatas] = useState([])
     const [handleId, setHandleId] = useState("")
     const [updateVisible, setUpdateVisible] = useState(false)
+    const [removeVisible, setRemoveVisible] = useState(false)
     const [monitorVisible, setMonitorVisible] = useState(false)
 
     const handleClick = (id: string) => {
@@ -19,6 +21,11 @@ const Monitor = () => {
 
     const handleUpdateClick = (id: string) => {
         setUpdateVisible(true);
+        setHandleId(id);
+    }
+
+    const handleRemoveCick = (id: string) => {
+        setRemoveVisible(true);
         setHandleId(id);
     }
 
@@ -91,7 +98,10 @@ const Monitor = () => {
                                         <Link to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
                                         {updateVisible && handleId === item.id && <UpdateMonitor setUpdateVisible={setUpdateVisible} handleId={handleId} />}
                                     </td>
-                                    <td><Link to="#">Excluir</Link></td>
+                                    <td>
+                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleRemoveCick(item.id); }}>Excluir</Link>
+                                        {removeVisible && handleId === item.id && <RemoveMonitor setRemoveVisible={setRemoveVisible} handleId={handleId} />}
+                                    </td>
                                 </tr>
                             ))}   
                         </tbody>

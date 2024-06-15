@@ -1,5 +1,5 @@
 .container {
-    width: 450px;
+    width: 35%;
     background-color: rgba(10, 57, 113, 0.15);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(10, 57, 113, 0.2);

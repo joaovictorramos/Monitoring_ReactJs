@@ -16,7 +16,7 @@ function MainRoutes() {
             <Route path="/absence/:id" element={<Absence />}></Route>
             <Route path="/registerUser" element={<RegisterUser />}></Route>
             <Route path="/registerMonitor" element={<RegisterMonitor />}></Route>
-            <Route path="/registerAbsence" element={<RegisterAbsence />}></Route>
+            <Route path="/registerAbsence/:id" element={<RegisterAbsence />}></Route>
         </Routes>
     )
 }

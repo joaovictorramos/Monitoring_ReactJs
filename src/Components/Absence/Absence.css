@@ -1,17 +1,22 @@
 .container {
-    width: 450px;
+    width: 35%;
     background-color: rgba(10, 57, 113, 0.15);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(10, 57, 113, 0.2);
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     text-shadow: #000 1px 1px;
 }
 
 .container h1 {
+    width: 100%;
     text-align: center;
     font-size: 30px;
     color: #fff;
+}
+
+.container .container-table {
+    overflow-x: auto;
 }
 
 .absence-table, .absence-table th, .absence-table td {
@@ -21,10 +26,18 @@
     border: 1px solid #dee2e6;
 }
 
-.absence-table th, .absence-table td {
+.absence-table th, .absence-table td, .absence-table .col-link {
     text-align: center;
     padding: 0.5rem;
     color: #fff;
+}
+
+.absence-table .col-link {
+    text-decoration: none;
+}
+
+.absence-table .col-link:hover {
+    text-decoration: underline;
 }
 
 .container button {
@@ -42,6 +55,6 @@
     text-shadow: none;
 }
 
-.container .btn-back {
+.container .btn-advance, .container .btn-back {
     margin-top: 20px;
 }

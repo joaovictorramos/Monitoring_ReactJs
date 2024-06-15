@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Absence.css"
 import "../../App.css"
 
@@ -60,7 +60,7 @@ const Absence = () => {
     }, [])
 
     const advanceScreen = () => {
-        navigate('/registerAbsence')
+        navigate(`/registerAbsence/${id}`)
     }
 
     const backScreen = () => {
@@ -70,14 +70,16 @@ const Absence = () => {
     return (
         <div className="App">
             <div className="container">
-                <div>
-                    <h1>Visualizar Faltas</h1>
+                <h1>Visualizar Faltas</h1>
+                <div className="container-table">
                     <table className="absence-table">
                         <thead>
                             <tr>
                                 <th>Monitor</th>
                                 <th>Data</th>
                                 <th>Justificativa</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,15 +89,17 @@ const Absence = () => {
                                     <td>{item.monitorId.name}</td>
                                     <td>{item.date}</td>
                                     <td>{item.justification}</td>
+                                    <td>
+                                        <Link className="col-link" onClick={(e) => { e.preventDefault(); handleUpdateAbsence(item.id) }}>Editar</Link>                                    </td>
+                                    <td><Link className="col-link" to="#">Excluir</Link></td>
                                 </tr>
                             ))}
                             
                         </tbody>
                     </table>
-
-                    <button onClick={advanceScreen}>Cadastrar Falta</button>
-                    <button onClick={backScreen} className="btn-back">Voltar</button>
                 </div>
+                <button onClick={advanceScreen} className="btn-advance">Cadastrar Falta</button>
+                <button onClick={backScreen} className="btn-back">Voltar</button>
             </div>
         </div>
     )

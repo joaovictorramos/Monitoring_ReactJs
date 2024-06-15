@@ -1,0 +1,84 @@
+.container-popup {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-remove-monitor {
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    height: 13rem;
+    width: 20rem;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.title-remove-monitor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.title-remove-monitor h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.title-remove-monitor svg {
+    cursor: pointer;
+    color: #333;
+}
+
+.option-remove-monitor {
+    width: 100%;
+    padding: 10px;
+}
+
+.option-remove-monitor p {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 10px auto;
+}
+
+.option-remove-monitor input[type=button] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+}
+
+.success-message-delete {
+    color: #7fff00;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.error-message-delete {
+    color: #ff0000;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+}
