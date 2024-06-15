@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 50vh;
     min-height: 100vh;
     background-image: url("./assets/fundo-camera.jpg");
     background-size: cover;

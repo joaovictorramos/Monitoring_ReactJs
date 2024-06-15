@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Absence.css"
 import "../../App.css"
+import UpdateAbsence from "../UpdateAbsence/UpdateAbsence";
 
 const Absence = () => {
     const { id } = useParams();
     const [monitor, setMonitor] = useState("");
     const [absences, setAbsences] = useState([]);
+    const [handleId, setHandleId] = useState("");
+    const [updateVisible, setUpdateVisible] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -59,6 +62,11 @@ const Absence = () => {
         })
     }, [])
 
+    const handleUpdateClick = (id: string) => {
+        setUpdateVisible(true);
+        setHandleId(id);
+    }
+
     const advanceScreen = () => {
         navigate(`/registerAbsence/${id}`)
     }
@@ -90,7 +98,9 @@ const Absence = () => {
                                     <td>{item.date}</td>
                                     <td>{item.justification}</td>
                                     <td>
-                                        <Link className="col-link" onClick={(e) => { e.preventDefault(); handleUpdateAbsence(item.id) }}>Editar</Link>                                    </td>
+                                        <Link className="col-link" to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
+                                        {updateVisible && handleId === item.id && <UpdateAbsence setUpdateVisible={setUpdateVisible} handleId={handleId} />}
+                                    </td>
                                     <td><Link className="col-link" to="#">Excluir</Link></td>
                                 </tr>
                             ))}

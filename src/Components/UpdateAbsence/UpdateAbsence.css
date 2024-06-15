@@ -1,0 +1,101 @@
+.container-popup {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-update-absence {
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    height: 17rem;
+    width: 30rem;
+    padding: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+
+.title-update-absence {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.title-update-absence h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.title-update-absence svg {
+    cursor: pointer;
+    color: #333;
+}
+
+.update-absence-form {
+    width: 100%;
+    height: 10rem;
+}
+
+.update-absence-form div {
+    margin-bottom: 10px;
+}
+
+.update-absence-form input[type="date"], .update-absence-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.update-absence-form input[type=button] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+}
+
+.update-absence-form .success-message-update-absence {
+    width: 100%;
+    color: #7fff00;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.update-absence-form .error-message-update-absence {
+    width: 100%;
+    color: #ff0000;
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .update-absence-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

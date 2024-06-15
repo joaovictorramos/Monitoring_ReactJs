@@ -116,7 +116,6 @@ const Popup = ({ setUpdateVisible, handleId }) => {
        
         if (Object.keys(bodyFormatter).length !== 0) {
             try {
-                event.preventDefault()
                 const response = await fetch(`http://localhost:3000/monitor/${handleId}`, {
                     method: "PATCH",
                     headers: {
