@@ -81,13 +81,17 @@ const Monitor = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {datas.map((item, index) => (
+                            { datas.map((item, index) => (
                                 <tr key={index}>
                                     <td>{item.name}</td>
                                     <td>{item.matterId.name}</td>
                                     <td>{item.startHour}</td>
                                     <td>{item.endHour}</td>
-                                    <td>{item.daysOfTheWeek}</td>
+                                    <td>
+                                        {item.daysOfTheWeekIds.map((day, index) => (
+                                            <span key={index}>{day.daysWeek}{index < item.daysOfTheWeekIds.length - 1 ? ', ' : ''}</span>
+                                        ))}
+                                    </td>
                                     <td>{item.classroomId.name}</td>
                                     <td>{item.typeOfMonitoring}</td>
                                     <td>

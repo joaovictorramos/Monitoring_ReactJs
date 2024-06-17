@@ -13,6 +13,7 @@ const RegisterMonitor = () => {
     const [period, setPeriod] = useState("")
 
     const [days, setDays] = useState({
+        Domingo: false,
         Segunda: false,
         Terça: false,
         Quarta: false,
@@ -29,6 +30,7 @@ const RegisterMonitor = () => {
 
     const [matters, setMatters] = useState([])
     const [classrooms, setClassrooms] = useState([])
+    const [daysOfTheWeek, setDaysOfTheWeek] = useState([])
     
     const [error, setError] = useState("")
     const [successMessage, setSucessMessage] = useState("")
@@ -107,6 +109,26 @@ const RegisterMonitor = () => {
     const handleRegisterMonitor = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
         let errorMessage = ''
+        fetch('http://localhost:3000/days-of-the-week', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Error when accessing the method to search for days')
+            }
+            return response.json()
+        })
+        .then(data => {
+            setDaysOfTheWeek(data)
+        })
+        .catch(error => {
+            console.log('Error loading data to fetch days: ', error)
+        })
+
         try {
             event.preventDefault()
             const response = await fetch('http://localhost:3000/monitor', {
@@ -121,7 +143,7 @@ const RegisterMonitor = () => {
                     "actualPeriod": period != null ? parseInt(period) : null,
                     "institutionalEmail": email,
                     "typeOfMonitoring": type,
-                    "daysOfTheWeek": getFormatDays(),
+                    "daysOfTheWeekIds": getFormatDays(),
                     "startHour": getFormatStartHour(),
                     "endHour": getFormatEndHour(),
                     "usersId": usersId,
@@ -145,11 +167,6 @@ const RegisterMonitor = () => {
             console.log(err)
         }
     }
- 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, checked } = event.target;
-        setDays(prevDays => ({ ...prevDays, [name]: checked }));
-    }
 
     const getFormatEndHour = () => {
         let dateObj = new Date(`1970-01-01T${endHour}Z`);
@@ -163,6 +180,11 @@ const RegisterMonitor = () => {
         return startHourString;
     }
 
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = event.target;
+        setDays(prevDays => ({ ...prevDays, [name]: checked }));
+    }
+
     const getFormatDays = () => {
         if (!days.Segunda && !days.Terça && !days.Quarta && !days.Quinta && !days.Sexta && !days.Sábado) {
             alert('Enter the day of the week.')
@@ -170,20 +192,29 @@ const RegisterMonitor = () => {
 
         }else {
             let daysList = []
-            if (days['Segunda']) {
-                daysList.push('SEGUNDA-FEIRA')
-            } else if (days['Terça']) {
-                daysList.push('TERÇA-FEIRA')
-            } else if (days['Quarta']) {
-                daysList.push('QUARTA-FEIRA')
-            } else if (days['Quinta']) {
-                daysList.push('QUINTA-FEIRA')
-            } else if (days['Sexta']) {
-                daysList.push('SEXTA-FEIRA')
-            } else if (days['Sábado']) {
-                daysList.push('SÁBADO')
+            if (days['Domingo']) {
+                daysList.push(daysOfTheWeek[0].id)
             }
-            return 'SEGUNDA-FEIRA'
+            if (days['Segunda']) {
+                daysList.push(daysOfTheWeek[1].id)
+            } 
+            if (days['Terça']) {
+                daysList.push(daysOfTheWeek[2].id)
+            } 
+            if (days['Quarta']) {
+                daysList.push(daysOfTheWeek[3].id)
+            }
+            if (days['Quinta']) {
+                daysList.push(daysOfTheWeek[4].id)
+            } 
+            if (days['Sexta']) {
+                daysList.push(daysOfTheWeek[5].id)
+            } 
+            if (days['Sábado']) {
+                daysList.push(daysOfTheWeek[6].id)
+            }
+            console.log(daysList)
+            return daysList
         }
     }
 

@@ -27,11 +27,12 @@ const Popup = ({ setMonitorVisible, handleId }) => {
             setMonitor(data)
             setMatter(data.matterId)
             setClassroom(data.classroomId)
+            console.log(monitor)
         })
         .catch(err => {
             console.log(`Error when loading the user in the monitor view popup: ${err}`)
         })
-    })
+    }, [])
 
     return (
         <div onClick={setMonitorVisible.bind(this, false)} className="container-popup">
@@ -62,7 +63,11 @@ const Popup = ({ setMonitorVisible, handleId }) => {
                         </tr>
                         <tr>
                             <td><strong>Dias da semana</strong></td>
-                            <td>{monitor.daysOfTheWeek}</td>
+                            <td>
+                                {monitor && monitor.daysOfTheWeekIds ? monitor.daysOfTheWeekIds.map((day, index) => (
+                                    <span key={index}>{day.daysWeek}{index < monitor.daysOfTheWeekIds.length - 1 ? ', ' : ''}</span>
+                                )) : ''}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Começo</strong></td>
