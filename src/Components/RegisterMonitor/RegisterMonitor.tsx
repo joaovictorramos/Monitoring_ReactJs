@@ -12,7 +12,7 @@ const RegisterMonitor = () => {
     const [matterId, setMatterId] = useState("")
     const [period, setPeriod] = useState("")
 
-    const [days, setDays] = useState({
+    const [days, setDays] = useState<{ [key: string]: boolean }>({
         Domingo: false,
         Segunda: false,
         Terça: false,
@@ -28,9 +28,9 @@ const RegisterMonitor = () => {
     const [type, setType] = useState("")
     const [usersId, setUsersId] = useState([])
 
-    const [matters, setMatters] = useState([])
-    const [classrooms, setClassrooms] = useState([])
-    const [daysOfTheWeek, setDaysOfTheWeek] = useState([])
+    const [matters, setMatters] = useState<{ id: string, name: string }[]>([]);
+    const [classrooms, setClassrooms] = useState<{ id: string, name: string }[]>([]);
+    const [daysOfTheWeek, setDaysOfTheWeek] = useState<{ id: string }[]>([]);
     
     const [error, setError] = useState("")
     const [successMessage, setSucessMessage] = useState("")

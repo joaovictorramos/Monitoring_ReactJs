@@ -3,7 +3,7 @@ import "./RemoveMonitor.css"
 import "../Monitor/Monitor.css"
 import { useState } from "react";
 
-const Popup = ({ setRemoveVisible, handleId }) => {
+const Popup = ({ setRemoveVisible, handleId }: { setRemoveVisible: (visible: boolean) => void; handleId: string }) => {
     const [error, setError] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
 

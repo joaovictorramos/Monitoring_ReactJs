@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import "./ViewMonitor.css"
 import "../Monitor/Monitor.css"
+import MonitorData from "../interfaces/Monitor.interface";
+import MatterData from "../interfaces/Matter.interfaces";
+import ClassroomData from "../interfaces/Classroom.interfaces";
 
-const Popup = ({ setMonitorVisible, handleId }) => {
-    const [matter, setMatter] = useState([])
-    const [monitor, setMonitor] = useState([])
-    const [classroom, setClassroom] = useState([])
+const Popup = ({ setMonitorVisible, handleId }: { setMonitorVisible: (visible: boolean) => void; handleId: string; }) => {
+    const [matter, setMatter] = useState<MatterData | null>(null);
+    const [monitor, setMonitor] = useState<MonitorData | null>(null);
+    const [classroom, setClassroom] = useState<ClassroomData | null>(null);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token')
@@ -21,7 +25,7 @@ const Popup = ({ setMonitorVisible, handleId }) => {
             if (!response.ok) {
                 throw new Error('Error when accessing the method to search for users')
             }
-            return response.json()
+            return response.json() as Promise<MonitorData>
         })
         .then(data => {
             setMonitor(data)
@@ -47,19 +51,19 @@ const Popup = ({ setMonitorVisible, handleId }) => {
                     <table>
                         <tr>
                             <td><strong>Monitor</strong></td>
-                            <td>{monitor.name}</td>
+                            <td>{monitor?.name}</td>
                         </tr>
                         <tr>
                             <td><strong>Contato</strong></td>
-                            <td>{monitor.institutionalEmail}</td>
+                            <td>{monitor?.institutionalEmail}</td>
                         </tr>
                         <tr>
                             <td><strong>Disciplina</strong></td>
-                            <td>{matter.name}</td>
+                            <td>{matter?.name}</td>
                         </tr>
                         <tr>
                             <td><strong>Período atual</strong></td>
-                            <td>{monitor.actualPeriod}</td>
+                            <td>{monitor?.actualPeriod}</td>
                         </tr>
                         <tr>
                             <td><strong>Dias da semana</strong></td>
@@ -71,23 +75,23 @@ const Popup = ({ setMonitorVisible, handleId }) => {
                         </tr>
                         <tr>
                             <td><strong>Começo</strong></td>
-                            <td>{monitor.startHour}</td>
+                            <td>{monitor?.startHour}</td>
                         </tr>
                         <tr>
                             <td><strong>Fim</strong></td>
-                            <td>{monitor.endHour}</td>
+                            <td>{monitor?.endHour}</td>
                         </tr>
                         <tr>
                             <td><strong>Tipo</strong></td>
-                            <td>{monitor.typeOfMonitoring}</td>
+                            <td>{monitor?.typeOfMonitoring}</td>
                         </tr>
                         <tr>
                             <td><strong>Local</strong></td>
-                            <td>{classroom.name}</td>
+                            <td>{classroom?.name}</td>
                         </tr>
                         <tr>
                             <td><strong>Bloco</strong></td>
-                            <td>{classroom.block}</td>
+                            <td>{classroom?.block}</td>
                         </tr>
                     </table>
                 </div>

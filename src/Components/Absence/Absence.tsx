@@ -6,38 +6,15 @@ import "./Absence.css"
 import "../../App.css"
 import UpdateAbsence from "../UpdateAbsence/UpdateAbsence";
 import RemoveAbsence from "../RemoveAbsence/RemoveAbsence";
+import AbsenceData from "../interfaces/Absence.interfaces";
 
 const Absence = () => {
-    const { id } = useParams();
-    const [monitor, setMonitor] = useState("");
-    const [absences, setAbsences] = useState([]);
+    const { id } = useParams<{ id: string }>();
+    const [absences, setAbsences] = useState<AbsenceData[]>([]);
     const [handleId, setHandleId] = useState("");
     const [removeVisible, setRemoveVisible] = useState(false)
     const [updateVisible, setUpdateVisible] = useState(false)
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = sessionStorage.getItem('token')
-        fetch(`http://localhost:3000/monitor/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error when accessing the method to search for monitor in the Absence class`)
-            }
-            return response.json()
-        })
-        .then(data => {
-            setMonitor(data)
-        })
-        .catch(err => {
-            console.log(`Error when accessing when accessing the method to search for monitor in the Absence class: ${err}`)
-        })
-    }, [])
 
     // FAZER O ENDPOINT PARA BUSCAR AS FALTAS PELO ID DO MONITOR
     useEffect(() => {

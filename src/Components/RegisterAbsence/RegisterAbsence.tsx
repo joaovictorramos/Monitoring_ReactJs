@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./RegisterAbsence.css"
 import "../../App.css"
@@ -8,34 +8,10 @@ const RegisterAbsence = () => {
     const { id } = useParams();
     const [date, setDate] = useState("");
     const [justification, setJustification] = useState("");
-    const [monitor, setMonitor] = useState("");
 
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = sessionStorage.getItem('token')
-        fetch(`http://localhost:3000/monitor/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error when accessing the method to search for monitor')
-            }
-            return response.json()
-        })
-        .then(data => {
-            setMonitor(data)
-        })
-        .catch(err => {
-            console.log('Error when searching for monitor id when trying to search a monitor: ', err)
-        })
-    }, [])
 
     const handleRegisterAbsence = async (event: React.FormEvent) => {
         const token = sessionStorage.getItem('token')
@@ -72,8 +48,8 @@ const RegisterAbsence = () => {
     }
 
     const getFormatDate = () => {
-        let dateObj = new Date(`${date}T00:00:00Z`);
-        let dateString = dateObj.toISOString().slice(0, 10);
+        const dateObj = new Date(`${date}T00:00:00Z`);
+        const dateString = dateObj.toISOString().slice(0, 10);
         return dateString;
     }
 

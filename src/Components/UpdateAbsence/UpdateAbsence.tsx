@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import "./UpdateAbsence.css"
 
-const Popup = ({ setUpdateVisible, handleId }) => {
+const Popup = ({ setUpdateVisible, handleId }: { setUpdateVisible: (visible: boolean) => void; handleId: string }) => {
     const [date, setDate] = useState("");
     const [justification, setJustification] = useState("");
 
@@ -13,7 +14,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
         const token = sessionStorage.getItem('token')
         event.preventDefault()
 
-        const bodyFormatter = {}
+        const bodyFormatter: Record<string, any> = {}
         if (date != '' && date !== undefined && date != null) {
             bodyFormatter["date"] = getFormatDate()
         }
@@ -51,8 +52,8 @@ const Popup = ({ setUpdateVisible, handleId }) => {
     }
 
     const getFormatDate = () => {
-        let dateObj = new Date(`${date}T00:00:00Z`);
-        let dateString = dateObj.toISOString().slice(0, 10);
+        const dateObj = new Date(`${date}T00:00:00Z`);
+        const dateString = dateObj.toISOString().slice(0, 10);
         return dateString;
     }
 

@@ -6,9 +6,10 @@ import "../../App.css";
 import ViewMonitor from '../ViewMonitor/ViewMonitor';
 import UpdateMonitor from '../UpdateMonitor/UpdateMonitor';
 import RemoveMonitor from '../RemoveMonitor/RemoveMonitor';
+import MonitorData from '../interfaces/Monitor.interface';
 
 const Monitor = () => {
-    const [datas, setDatas] = useState([])
+    const [datas, setDatas] = useState<MonitorData[]>([]);
     const [handleId, setHandleId] = useState("")
     const [updateVisible, setUpdateVisible] = useState(false)
     const [removeVisible, setRemoveVisible] = useState(false)
@@ -42,7 +43,7 @@ const Monitor = () => {
             if(!response.ok) {
                 throw new Error('Error when accessing the method to search for monitors')
             }
-            return response.json()
+            return response.json() as Promise<MonitorData[]>
         })
         .then(data => {
             setDatas(data)

@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import "./UpdateMonitor.css"
 import "../Monitor/Monitor.css"
 import { Link } from "react-router-dom";
 
-const Popup = ({ setUpdateVisible, handleId }) => {
+const Popup = ({ setUpdateVisible, handleId }: { setUpdateVisible: (visible: boolean) => void; handleId: string }) => {
     const [name, setName] = useState("")
     const [registration, setRegistration] = useState("")
     const [email, setEmail] = useState("")
     const [matterId, setMatterId] = useState("")
-    const [period, setPeriod] = useState(null)
+    const [period, setPeriod] = useState<number | null>(null)
 
-    const [days, setDays] = useState({
+    const [days, setDays] = useState<{ [key: string]: boolean }>({
         Domingo: false,
         Segunda: false,
         Terça: false,
@@ -26,9 +27,9 @@ const Popup = ({ setUpdateVisible, handleId }) => {
     const [classroomId, setClassroomId] = useState("")
     const [type, setType] = useState("")
 
-    const [matters, setMatters] = useState([])
-    const [classrooms, setClassrooms] = useState([])
-    const [daysOfTheWeek, setDaysOfTheWeek] = useState([])
+    const [matters, setMatters] = useState<any[]>([])
+    const [classrooms, setClassrooms] = useState<any[]>([])
+    const [daysOfTheWeek, setDaysOfTheWeek] = useState<any[]>([])
     
     const [error, setError] = useState("")
     const [successMessage, setSucessMessage] = useState("")
@@ -104,7 +105,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
             console.log('Error loading data to fetch days: ', error)
         })
 
-        const bodyFormatter = {}
+        const bodyFormatter: Record<string, any> = {}
         if (name.trim() != '' && name.trim() !== undefined && name.trim() != null) {
             bodyFormatter["name"] = name
         }
@@ -116,7 +117,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                 bodyFormatter["institutionalEmail"] = email
         }
         if (period !== undefined && period != null) {
-            bodyFormatter["actualPeriod"] = parseInt(period)
+            bodyFormatter["actualPeriod"] = period
         }
         if (matterId != '' && matterId !== undefined && matterId != null) {
             bodyFormatter["matterId"] = matterId
@@ -260,7 +261,7 @@ const Popup = ({ setUpdateVisible, handleId }) => {
                         <input type="email" placeholder="E-mail institucional" onChange={(e) => { e.preventDefault(); setEmail(e.target.value) }} />
                     </div>
                     <div>
-                        <input type="number" placeholder="Período atual" min={1} max={9} onChange={(e) => { e.preventDefault(); setPeriod(e.target.value) }} />
+                        <input type="number" placeholder="Período atual" min={1} max={9} onChange={(e) => { e.preventDefault(); setPeriod(parseInt(e.target.value)) }} />
                     </div>
                     <div>
                         <p>Disciplina</p>
