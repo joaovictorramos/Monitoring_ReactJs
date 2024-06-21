@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./Monitor.css";
-import "../../App.css";
 import ViewMonitor from '../ViewMonitor/ViewMonitor';
 import UpdateMonitor from '../UpdateMonitor/UpdateMonitor';
 import RemoveMonitor from '../RemoveMonitor/RemoveMonitor';
@@ -55,7 +54,7 @@ const Monitor = () => {
 
     return(
         <div className="container-monitor">
-            <form>
+            <form className='container-list-monitor-form'>
                 <h1>Monitores</h1>
                 <div className="btn-monitor">
                     <ul>
@@ -96,15 +95,15 @@ const Monitor = () => {
                                     <td>{item.classroomId.name}</td>
                                     <td>{item.typeOfMonitoring}</td>
                                     <td>
-                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleClick(item.id); }} >Visualizar</Link>
+                                        <Link className='link-table-monitor' to="#" onClick={(e) => { e.preventDefault(); handleClick(item.id); }} >Visualizar</Link>
                                         {monitorVisible && handleId === item.id && <ViewMonitor setMonitorVisible={setMonitorVisible} handleId={handleId} />}
                                     </td>
                                     <td>
-                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
+                                        <Link className='link-table-monitor' to="#" onClick={(e) => { e.preventDefault(); handleUpdateClick(item.id); }}>Editar</Link>
                                         {updateVisible && handleId === item.id && <UpdateMonitor setUpdateVisible={setUpdateVisible} handleId={handleId} />}
                                     </td>
                                     <td>
-                                        <Link to="#" onClick={(e) => { e.preventDefault(); handleRemoveCick(item.id); }}>Excluir</Link>
+                                        <Link className='link-table-monitor' to="#" onClick={(e) => { e.preventDefault(); handleRemoveCick(item.id); }}>Excluir</Link>
                                         {removeVisible && handleId === item.id && <RemoveMonitor setRemoveVisible={setRemoveVisible} handleId={handleId} />}
                                     </td>
                                 </tr>
