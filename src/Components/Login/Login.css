@@ -37,13 +37,13 @@
     color: #fff;
 }
 
-.input-field .icon {
+.input-field svg {
     position: absolute;
     right: 25px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 18px;
-    color: rgb(10, 57, 113);
+    color: #fff;
 }
 
 .container .recall-forget {
@@ -64,7 +64,7 @@
 
 .recall-forget a:hover, .signup-link a:hover {
     text-decoration: underline;
-    color: rgba(10, 57, 113, 0.15);
+    color: #6c9fde;
 }
 
 .container button {
@@ -90,7 +90,7 @@
 }
 
 .signup-link a {
-    color: rgb(10, 57, 113);
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 

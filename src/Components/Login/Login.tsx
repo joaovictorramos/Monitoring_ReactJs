@@ -42,11 +42,11 @@ const Login = () => {
                 <h1>Acesse o sistema</h1>
                 <div className="input-field">
                     <input type="email" placeholder="E-mail" required onChange={(e) => setUsername(e.target.value)} />
-                    <FaUser className="icon" />
+                    <FaUser />
                 </div>
                 <div className="input-field">
                     <input type="password" placeholder="Senha" required onChange={(e) => setPassword(e.target.value)} />
-                    <FaLock className="icon" />
+                    <FaLock />
                 </div>
                 <div className="recall-forget">
                     <Link to="/forgot">Esqueceu a senha?</Link>

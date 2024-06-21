@@ -2,8 +2,34 @@
     padding: 1rem;
 }
 
+.container .container-list-monitor-form {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container-monitor h1 {
+    color:#051b33;
+    font-size: 35px;
+    text-align: start;
+}
+
 .btn-monitor {
     margin: 20px 20px 20px 0px;
+    border-radius: 3px;
+    color: #0A3461;
+    height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size:15px;
+}
+
+.btn-monitor:hover {
+    opacity: 0.8;
 }
   
 .btn-monitor ul {
@@ -29,19 +55,39 @@
     color: #ffffff;
 }
   
-.table-monitor-container .table-monitor {
-    width: 100%;
+.table-monitor, .table-monitor-container th, .table-monitor-container td {
+    text-align: center;
+    padding: 5px 8px;
+    border-bottom: 1px solid #dee2e6;
     border-collapse: collapse;
 }
-  
-.table-monitor-container th, .table-monitor-container td {
+
+.table-monitor {
+    border: 2px solid #051b33;
+}
+
+.table-monitor th {
+    background-color:#0A3461;
     text-align: center;
-    padding: 0.5rem;
-    border-bottom: 1px solid #dee2e6;
+    color:#051b33;
+}
+
+.table-monitor td {
+    background-color:#f7f7f7 ;
+}
+
+.table-monitor-container {
+    max-width: 100%;
+    overflow-x: auto;
 }
   
 .table-monitor-container th {
     background-color: #f8f9fa;
+}
+
+.link-table-monitor {
+    color: #8f7cc1;
+    font-size: 15px;
 }
  
 @media (max-width: 768px) {
