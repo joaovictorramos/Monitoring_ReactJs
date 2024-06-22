@@ -16,7 +16,6 @@ const Absence = () => {
     const [updateVisible, setUpdateVisible] = useState(false)
     const navigate = useNavigate();
 
-    // FAZER O ENDPOINT PARA BUSCAR AS FALTAS PELO ID DO MONITOR
     useEffect(() => {
         const token = sessionStorage.getItem('token')
         fetch(`http://localhost:3000/absence/monitor/${id}`, {
@@ -33,7 +32,6 @@ const Absence = () => {
             return response.json()
         })
         .then(data => {
-            console.log(data)
             setAbsences(data)
         })
         .catch(err => {
