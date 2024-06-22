@@ -54,6 +54,11 @@
     background-color: #007bff;
     color: #ffffff;
 }
+
+.table-monitor-container {
+    display: flex;
+    justify-content: center;
+}
   
 .table-monitor, .table-monitor-container th, .table-monitor-container td {
     text-align: center;
